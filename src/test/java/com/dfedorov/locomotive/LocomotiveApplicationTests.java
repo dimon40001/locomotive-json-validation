@@ -1,3 +1,8 @@
+/*
+ * Locomotive Numbers Validator
+ * Copyright (c) 2019.
+ */
+
 package com.dfedorov.locomotive;
 
 import org.junit.Test;
@@ -9,8 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class LocomotiveApplicationTests {
 
-	@Test
-	public void contextLoads() {
-	}
+    @Test
+    public void contextLoads() {
+    }
 
 }

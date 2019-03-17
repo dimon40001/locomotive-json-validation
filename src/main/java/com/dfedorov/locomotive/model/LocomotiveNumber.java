@@ -7,39 +7,49 @@ package com.dfedorov.locomotive.model;
 
 /**
  * Definition of the railway train number.
- *
+ * <p>
  * <p>Train number example: 1014 005-1, where:
  * <p>1014 - Reihennummer
  * <p>005 - Ordnungsnummer
  * <p>1 - Check digit
- *
+ * <p>
  * <p>https://de.wikipedia.org/wiki/Reihenschema_der_%C3%96BB
  */
 public class LocomotiveNumber implements Checkable {
 
-    /** 4 digits (Reihennummer) */
+    /**
+     * 4 digits (Reihennummer)
+     */
     private int reihenNumber;
 
-    /** 3 digits (Ordnungsnummer) */
+    /**
+     * 3 digits (Ordnungsnummer)
+     */
     private int ordnungsNumber;
 
-    /** Check digit (Prüfziffer) */
+    /**
+     * Check digit (Prüfziffer)
+     */
     private int checkDigit;
 
-    /** User-friendly string representation of the locomotive number*/
+    /**
+     * User-friendly string representation of the locomotive number
+     */
     private String fullNumber;
 
-    /** Validity status */
+    /**
+     * Validity status
+     */
     private boolean isValid;
 
     /**
      * LocomotiveNumber constructor.
-     *
+     * <p>
      * Sets the initial parameters and updates instance variables
      *
-     * @param reihenNumber Locomotive's Reihennummer
+     * @param reihenNumber   Locomotive's Reihennummer
      * @param ordnungsNumber Locomotive's Ordnungsnummmer
-     * @param checkDigit Locomotive's Prüfziffer
+     * @param checkDigit     Locomotive's Prüfziffer
      */
     public LocomotiveNumber(int reihenNumber, int ordnungsNumber, int checkDigit) {
         this.reihenNumber = reihenNumber;
@@ -50,7 +60,6 @@ public class LocomotiveNumber implements Checkable {
     }
 
     /**
-     *
      * @return User-friendly locomotive number with leading zeros
      */
     @Override
@@ -59,7 +68,6 @@ public class LocomotiveNumber implements Checkable {
     }
 
     /**
-     *
      * @return User-friendly locomotive number with leading zeros
      */
     public String getFullNumber() {
@@ -78,7 +86,7 @@ public class LocomotiveNumber implements Checkable {
 
     /**
      * Implementation of the Checkable interface method
-     *
+     * <p>
      * Bei den ÖBB ist das eine achtstellige Nummer bestehend aus der vierstelligen Reihennummer,
      * der dreistelligen Ordnungsnummer und einer durch einen Bindestrich abgesetzten Prüfziffer.
      * Die Prüfziffer wird aus den ersten sieben Stellen berechnet.
@@ -100,7 +108,6 @@ public class LocomotiveNumber implements Checkable {
     /**
      * Reverts multiplier value from 1 to 2, from 2 to 1 and so forth.
      *
-     *
      * @param multiplier
      * @return multiplier
      */
@@ -116,7 +123,7 @@ public class LocomotiveNumber implements Checkable {
     /**
      * Calculates the checksum for the provided value and returns as integer.
      *
-     * @param number value to calculate checksum
+     * @param number     value to calculate checksum
      * @param multiplier initial multiplier to start with
      *                   (for 4-digit numbers should be 1,
      *                   for 3-digit numbers should be 2,
@@ -130,7 +137,7 @@ public class LocomotiveNumber implements Checkable {
             digit *= multiplier;
 
             if (digit > 9) {
-                sum = 1+ digit % 10;
+                sum += 1 + digit % 10;
             } else {
                 sum += digit;
             }

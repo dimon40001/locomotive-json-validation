@@ -1,0 +1,73 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Checkable</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.dfedorov.locomotive.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Checkable (com.dfedorov.locomotive.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">Checkable</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * Locomotive Numbers Validator
+<i>3</i>&nbsp; * Copyright (c) 2019.
+<i>4</i>&nbsp; */
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;package com.dfedorov.locomotive.model;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * Interface defines common methods for the validity checks.
+<i>10</i>&nbsp; */
+<i>11</i>&nbsp;public interface Checkable {
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;    /**
+<i>14</i>&nbsp;     * Checks the validity of the object&#39;s internal state.
+<i>15</i>&nbsp;     *
+<i>16</i>&nbsp;     * @return &quot;true&quot; if the object is in the valid state, &quot;false&quot; otherwise
+<i>17</i>&nbsp;     */
+<i>18</i>&nbsp;    boolean isValid();
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * Calculates the check number (control number, check sum) for the object.
+<i>22</i>&nbsp;     *
+<i>23</i>&nbsp;     * @return the control number (check sum) calculated by the object
+<i>24</i>&nbsp;     */
+<i>25</i>&nbsp;    int getCheckNumber();
+<i>26</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-03-17 21:03</div>
+</div>
+</body>
+</html>

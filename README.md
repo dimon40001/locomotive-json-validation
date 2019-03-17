@@ -8,6 +8,7 @@ Web-service for the locomotive numbers validity online check (based on SpringBoo
 
 **Example**
 `http://localhost:8080/api?locomotive=1160645`
+
 JSON Result:
 ```json
 {
@@ -39,18 +40,20 @@ the calculator, the check digit is used to carry out a plausibility check, which
 ## Examples
 
 ### Locomotive number: 1014 005-1
-    Number: 1 0 1 4 0 0 5
-    Multiplier: 2 1 2 1 2 1 2
-    Result: 2 0 2 4 0 0 10
-    Checksum: 2+ 0+ 2+ 4+ 0+ 0+ 1+0 = 9
+    Number:     1  0  1  4  0  0  5
+    Multiplier: 2  1  2  1  2  1  2
+    Result:     2  0  2  4  0  0  10
+    Checksum:   2+ 0+ 2+ 4+ 0+ 0+ 1+0 = 9
+    
     Difference to the nearest multiple of 10: (10-9=) 1
     1 = Check digit -> *1014 005-1*
 
 ### Locomotive number: 1116 064-5
-    Number: 1 1 1 6 0 6 4
-    Multiplier: 2 1 2 1 2 1 2
-    Result: 2 1 2 6 0 6 8
-    Checksum: 2+ 1+ 2+ 6+ 0+ 6+ 8 = 25
+    Number:     1  1  1  6  0  6  4
+    Multiplier: 2  1  2  1  2  1  2
+    Result:     2  1  2  6  0  6  8
+    Checksum:   2+ 1+ 2+ 6+ 0+ 6+ 8 = 25
+    
     Difference to the nearest multiple of 10: (30-25=) 5
     5 = Check digit -> *1116 064-5*
 

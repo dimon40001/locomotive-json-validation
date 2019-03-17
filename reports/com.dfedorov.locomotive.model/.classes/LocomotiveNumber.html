@@ -1,0 +1,233 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LocomotiveNumber</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.dfedorov.locomotive.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LocomotiveNumber (com.dfedorov.locomotive.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LocomotiveNumber</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (28/ 28)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * Locomotive Numbers Validator
+<i>3</i>&nbsp; * Copyright (c) 2019.
+<i>4</i>&nbsp; */
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;package com.dfedorov.locomotive.model;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * Definition of the railway train number.
+<i>10</i>&nbsp; * &lt;p&gt;
+<i>11</i>&nbsp; * &lt;p&gt;Train number example: 1014 005-1, where:
+<i>12</i>&nbsp; * &lt;p&gt;1014 - Reihennummer
+<i>13</i>&nbsp; * &lt;p&gt;005 - Ordnungsnummer
+<i>14</i>&nbsp; * &lt;p&gt;1 - Check digit
+<i>15</i>&nbsp; * &lt;p&gt;
+<i>16</i>&nbsp; * &lt;p&gt;https://de.wikipedia.org/wiki/Reihenschema_der_%C3%96BB
+<i>17</i>&nbsp; */
+<i>18</i>&nbsp;public class LocomotiveNumber implements Checkable {
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * 4 digits (Reihennummer)
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    private int reihenNumber;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    /**
+<i>26</i>&nbsp;     * 3 digits (Ordnungsnummer)
+<i>27</i>&nbsp;     */
+<i>28</i>&nbsp;    private int ordnungsNumber;
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * Check digit (Pr?fziffer)
+<i>32</i>&nbsp;     */
+<i>33</i>&nbsp;    private int checkDigit;
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    /**
+<i>36</i>&nbsp;     * User-friendly string representation of the locomotive number
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    private String fullNumber;
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    /**
+<i>41</i>&nbsp;     * Validity status
+<i>42</i>&nbsp;     */
+<i>43</i>&nbsp;    private boolean isValid;
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    /**
+<i>46</i>&nbsp;     * LocomotiveNumber constructor.
+<i>47</i>&nbsp;     * &lt;p&gt;
+<i>48</i>&nbsp;     * Sets the initial parameters and updates instance variables
+<i>49</i>&nbsp;     *
+<i>50</i>&nbsp;     * @param reihenNumber   Locomotive&#39;s Reihennummer
+<i>51</i>&nbsp;     * @param ordnungsNumber Locomotive&#39;s Ordnungsnummmer
+<i>52</i>&nbsp;     * @param checkDigit     Locomotive&#39;s Pr?fziffer
+<i>53</i>&nbsp;     */
+<b class="fc"><i>54</i>&nbsp;    public LocomotiveNumber(int reihenNumber, int ordnungsNumber, int checkDigit) {</b>
+<b class="fc"><i>55</i>&nbsp;        this.reihenNumber = reihenNumber;</b>
+<b class="fc"><i>56</i>&nbsp;        this.ordnungsNumber = ordnungsNumber;</b>
+<b class="fc"><i>57</i>&nbsp;        this.checkDigit = checkDigit;</b>
+<b class="fc"><i>58</i>&nbsp;        this.fullNumber = getFullNumber();</b>
+<b class="fc"><i>59</i>&nbsp;        this.isValid = isValid();</b>
+<b class="fc"><i>60</i>&nbsp;    }</b>
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    /**
+<i>63</i>&nbsp;     * @return User-friendly locomotive number with leading zeros
+<i>64</i>&nbsp;     */
+<i>65</i>&nbsp;    @Override
+<i>66</i>&nbsp;    public String toString() {
+<b class="fc"><i>67</i>&nbsp;        return fullNumber;</b>
+<i>68</i>&nbsp;    }
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    /**
+<i>71</i>&nbsp;     * @return User-friendly locomotive number with leading zeros
+<i>72</i>&nbsp;     */
+<i>73</i>&nbsp;    public String getFullNumber() {
+<b class="fc"><i>74</i>&nbsp;        return String.format(&quot;%04d %03d-%1d&quot;, reihenNumber, ordnungsNumber, checkDigit);</b>
+<i>75</i>&nbsp;    }
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;    /**
+<i>78</i>&nbsp;     * Implementation of the Checkable interface method
+<i>79</i>&nbsp;     *
+<i>80</i>&nbsp;     * @return &quot;true&quot; if the LocomotiveNumber is valid
+<i>81</i>&nbsp;     */
+<i>82</i>&nbsp;    @Override
+<i>83</i>&nbsp;    public boolean isValid() {
+<b class="fc"><i>84</i>&nbsp;        return checkDigit == getCheckNumber();</b>
+<i>85</i>&nbsp;    }
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    /**
+<i>88</i>&nbsp;     * Implementation of the Checkable interface method
+<i>89</i>&nbsp;     * &lt;p&gt;
+<i>90</i>&nbsp;     * Bei den ?BB ist das eine achtstellige Nummer bestehend aus der vierstelligen Reihennummer,
+<i>91</i>&nbsp;     * der dreistelligen Ordnungsnummer und einer durch einen Bindestrich abgesetzten Pr?fziffer.
+<i>92</i>&nbsp;     * Die Pr?fziffer wird aus den ersten sieben Stellen berechnet.
+<i>93</i>&nbsp;     * Dazu wird die Quersumme der Ziffernfolge gebildet, die sich ergibt, wenn man die sieben Ziffern
+<i>94</i>&nbsp;     * abwechselnd mit 2 und 1 multipliziert (erste Stelle mit 2, zweite mit 1, dritte wieder mit 2 usw.);
+<i>95</i>&nbsp;     * die Differenz dieser Quersumme &lt;b&gt;zum n?chsten Vielfachen von Zehn&lt;/b&gt; bildet die Pr?fziffer.
+<i>96</i>&nbsp;     * Bei der Eingabe in Rechner wird ?ber die Pr?fziffer eine Plausibilit?tskontrolle ausgef?hrt,
+<i>97</i>&nbsp;     * die beispielsweise Ziffernst?rze erkennt.
+<i>98</i>&nbsp;     *
+<i>99</i>&nbsp;     * @return check digit
+<i>100</i>&nbsp;     */
+<i>101</i>&nbsp;    @Override
+<i>102</i>&nbsp;    public int getCheckNumber() {
+<b class="fc"><i>103</i>&nbsp;        final int multipleOf10 = 10;</b>
+<b class="fc"><i>104</i>&nbsp;        int checkSum = getCheckSum(reihenNumber, 1) + getCheckSum(ordnungsNumber, 2);</b>
+<b class="fc"><i>105</i>&nbsp;        return multipleOf10 - checkSum % 10;</b>
+<i>106</i>&nbsp;    }
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;    /**
+<i>109</i>&nbsp;     * Reverts multiplier value from 1 to 2, from 2 to 1 and so forth.
+<i>110</i>&nbsp;     *
+<i>111</i>&nbsp;     * @param multiplier
+<i>112</i>&nbsp;     * @return multiplier
+<i>113</i>&nbsp;     */
+<i>114</i>&nbsp;    private int getMultiplier(int multiplier) {
+<b class="fc"><i>115</i>&nbsp;        if (multiplier == 2) {</b>
+<b class="fc"><i>116</i>&nbsp;            multiplier = 1;</b>
+<i>117</i>&nbsp;        } else {
+<b class="fc"><i>118</i>&nbsp;            multiplier = 2;</b>
+<i>119</i>&nbsp;        }
+<b class="fc"><i>120</i>&nbsp;        return multiplier;</b>
+<i>121</i>&nbsp;    }
+<i>122</i>&nbsp;
+<i>123</i>&nbsp;    /**
+<i>124</i>&nbsp;     * Calculates the checksum for the provided value and returns as integer.
+<i>125</i>&nbsp;     *
+<i>126</i>&nbsp;     * @param number     value to calculate checksum
+<i>127</i>&nbsp;     * @param multiplier initial multiplier to start with
+<i>128</i>&nbsp;     *                   (for 4-digit numbers should be 1,
+<i>129</i>&nbsp;     *                   for 3-digit numbers should be 2,
+<i>130</i>&nbsp;     * @return Checksum of the number
+<i>131</i>&nbsp;     */
+<i>132</i>&nbsp;    private int getCheckSum(int number, int multiplier) {
+<b class="fc"><i>133</i>&nbsp;        int sum = 0;</b>
+<i>134</i>&nbsp;
+<b class="fc"><i>135</i>&nbsp;        while (number != 0) {</b>
+<b class="fc"><i>136</i>&nbsp;            int digit = number % 10;</b>
+<b class="fc"><i>137</i>&nbsp;            digit *= multiplier;</b>
+<i>138</i>&nbsp;
+<b class="fc"><i>139</i>&nbsp;            if (digit &gt; 9) {</b>
+<b class="fc"><i>140</i>&nbsp;                sum += 1 + digit % 10;</b>
+<i>141</i>&nbsp;            } else {
+<b class="fc"><i>142</i>&nbsp;                sum += digit;</b>
+<i>143</i>&nbsp;            }
+<i>144</i>&nbsp;
+<b class="fc"><i>145</i>&nbsp;            multiplier = getMultiplier(multiplier);</b>
+<b class="fc"><i>146</i>&nbsp;            number /= 10;</b>
+<b class="fc"><i>147</i>&nbsp;        }</b>
+<b class="fc"><i>148</i>&nbsp;        return sum;</b>
+<i>149</i>&nbsp;    }
+<i>150</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-03-17 21:03</div>
+</div>
+</body>
+</html>

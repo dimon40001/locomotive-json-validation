@@ -1,0 +1,156 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LocomotiveController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.dfedorov.locomotive</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LocomotiveController (com.dfedorov.locomotive)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LocomotiveController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/ 17)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * Locomotive Numbers Validator
+<i>3</i>&nbsp; * Copyright (c) 2019.
+<i>4</i>&nbsp; */
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;package com.dfedorov.locomotive;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import com.google.gson.Gson;
+<i>9</i>&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+<i>10</i>&nbsp;import org.springframework.web.bind.annotation.RequestParam;
+<i>11</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>12</i>&nbsp;import com.dfedorov.locomotive.model.LocomotiveNumber;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;import javax.servlet.http.HttpServletRequest;
+<i>15</i>&nbsp;import javax.servlet.http.HttpServletResponse;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;/**
+<i>18</i>&nbsp; * Controller class takes care of HTTP GET requests and sends responses.
+<i>19</i>&nbsp; */
+<i>20</i>&nbsp;@RestController
+<b class="fc"><i>21</i>&nbsp;public class LocomotiveController {</b>
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * Default web-page mapping for server root (&quot;/&quot;)
+<i>25</i>&nbsp;     */
+<b class="fc"><i>26</i>&nbsp;    private String INDEX_PAGE = &quot;Use the following format: &lt;br&gt;&lt;br&gt;&quot; +</b>
+<i>27</i>&nbsp;            &quot;/api?locomotive=12345678&quot;;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * Sends default response when server root is accessed.
+<i>31</i>&nbsp;     *
+<i>32</i>&nbsp;     * @return web-page body
+<i>33</i>&nbsp;     */
+<i>34</i>&nbsp;    @GetMapping(value = &quot;/&quot;, produces = &quot;text/html; charset=UTF-8&quot;)
+<i>35</i>&nbsp;    public String index() {
+<b class="fc"><i>36</i>&nbsp;        return INDEX_PAGE;</b>
+<i>37</i>&nbsp;    }
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /**
+<i>40</i>&nbsp;     * HTTP mapping for /api which sends the JSON output for the requested locomotive full number.
+<i>41</i>&nbsp;     *
+<i>42</i>&nbsp;     * @param locomotive locomotive full number (8 digits). Example: 11426061
+<i>43</i>&nbsp;     * @param request    HTTP request
+<i>44</i>&nbsp;     * @param response   HTTP response
+<i>45</i>&nbsp;     * @return response body
+<i>46</i>&nbsp;     */
+<i>47</i>&nbsp;    @GetMapping(value = &quot;/api&quot;, produces = &quot;application/json;charset=UTF-8&quot;)
+<i>48</i>&nbsp;    public String api(@RequestParam(value = &quot;locomotive&quot;, required = false) String locomotive,
+<i>49</i>&nbsp;                      HttpServletRequest request,
+<i>50</i>&nbsp;                      HttpServletResponse response) {
+<b class="fc"><i>51</i>&nbsp;        String result = &quot;&quot;;</b>
+<b class="fc"><i>52</i>&nbsp;        if (locomotive == null || locomotive.length() != 8) {</b>
+<b class="fc"><i>53</i>&nbsp;            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);</b>
+<b class="fc"><i>54</i>&nbsp;            result = &quot;Bad Request&quot;;</b>
+<i>55</i>&nbsp;        } else {
+<i>56</i>&nbsp;            try {
+<b class="fc"><i>57</i>&nbsp;                int reihenNumber = Integer.parseInt(locomotive.substring(0, 4));</b>
+<b class="fc"><i>58</i>&nbsp;                int ordnungsNumber = Integer.parseInt(locomotive.substring(4, 7));</b>
+<b class="fc"><i>59</i>&nbsp;                int checkDigit = Integer.parseInt(locomotive.substring(7, 8));</b>
+<b class="fc"><i>60</i>&nbsp;                response.setStatus(HttpServletResponse.SC_OK);</b>
+<b class="fc"><i>61</i>&nbsp;                result = new Gson().toJson(new LocomotiveNumber(</b>
+<i>62</i>&nbsp;                        reihenNumber,
+<i>63</i>&nbsp;                        ordnungsNumber,
+<i>64</i>&nbsp;                        checkDigit));
+<b class="fc"><i>65</i>&nbsp;            } catch (NumberFormatException e) {</b>
+<b class="fc"><i>66</i>&nbsp;                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);</b>
+<b class="fc"><i>67</i>&nbsp;                result = &quot;Bad Request&quot;;</b>
+<b class="fc"><i>68</i>&nbsp;            }</b>
+<i>69</i>&nbsp;        }
+<b class="fc"><i>70</i>&nbsp;        return result;</b>
+<i>71</i>&nbsp;    }
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-03-17 21:03</div>
+</div>
+</body>
+</html>

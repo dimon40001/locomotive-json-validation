@@ -7,7 +7,7 @@ Web-service for the locomotive numbers validity online check (based on SpringBoo
 1. Get JSON
 
 **Example**
-`http://localhost:8080/api?locomotive=1160645`
+`http://localhost:8080/api?locomotive=11160645`
 
 JSON Result:
 ```json

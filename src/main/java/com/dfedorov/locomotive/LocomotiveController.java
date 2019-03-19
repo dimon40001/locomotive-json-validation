@@ -23,8 +23,9 @@ public class LocomotiveController {
     /**
      * Default web-page mapping for server root ("/")
      */
-    private String INDEX_PAGE = "Use the following format: <br><br>" +
+    private final String INDEX_PAGE = "Use the following format: <br><br>" +
             "/api?locomotive=12345678";
+    private final String BAD_REQUEST = "Bad Request";
 
     /**
      * Sends default response when server root is accessed.
@@ -51,7 +52,7 @@ public class LocomotiveController {
         String result = "";
         if (locomotive == null || locomotive.length() != 8) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            result = "Bad Request";
+            result = BAD_REQUEST;
         } else {
             try {
                 int reihenNumber = Integer.parseInt(locomotive.substring(0, 4));
@@ -64,7 +65,7 @@ public class LocomotiveController {
                         checkDigit));
             } catch (NumberFormatException e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                result = "Bad Request";
+                result = BAD_REQUEST;
             }
         }
         return result;

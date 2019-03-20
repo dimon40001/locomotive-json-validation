@@ -23,8 +23,12 @@ public class LocomotiveController {
     /**
      * Default web-page mapping for server root ("/")
      */
-    private final String INDEX_PAGE = "Use the following format: <br><br>" +
-            "/api?locomotive=12345678";
+    private final String INDEX_PAGE =
+            "<!DOCTYPE html>" +
+            "<html><head></head><body>" +
+            "Use the following format: <br><br>" +
+            "/api?locomotive=12345678" +
+            "<br></body></html>";
     private final String BAD_REQUEST = "Bad Request";
 
     /**

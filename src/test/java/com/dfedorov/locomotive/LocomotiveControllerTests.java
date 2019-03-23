@@ -29,20 +29,28 @@ public class LocomotiveControllerTests {
 
     @Test
     public void testIndex() {
-        given().port(port).get("/").then().assertThat().body(containsString("Use the following format"));
-        given().port(port).get("/").then().assertThat().statusCode(200);
+        given().port(port).get("/").then().assertThat()
+                .body(containsString("Use the following format"));
+        given().port(port).get("/").then().assertThat()
+                .statusCode(200);
     }
 
     @Test
     public void testApiBadRequest() {
-        given().port(port).get("/api").then().assertThat().body(containsString("Bad Request"));
-        given().port(port).get("/api").then().assertThat().statusCode(400);
+        given().port(port).get("/api").then().assertThat()
+                .body(containsString("Bad Request"));
+        given().port(port).get("/api").then().assertThat()
+                .statusCode(400);
 
-        given().port(port).get("/api?locomotive=123456789").then().assertThat().body(containsString("Bad Request"));
-        given().port(port).get("/api?locomotive=123456789").then().assertThat().statusCode(400);
+        given().port(port).get("/api?locomotive=123456789").
+                then().assertThat().body(containsString("Bad Request"));
+        given().port(port).get("/api?locomotive=123456789").
+                then().assertThat().statusCode(400);
 
-        given().port(port).get("/api?locomotive=123456-8").then().assertThat().body(containsString("Bad Request"));
-        given().port(port).get("/api?locomotive=123456-8").then().assertThat().statusCode(400);
+        given().port(port).get("/api?locomotive=123456-8").
+                then().assertThat().body(containsString("Bad Request"));
+        given().port(port).get("/api?locomotive=123456-8").
+                then().assertThat().statusCode(400);
     }
 
     @Test

@@ -25,10 +25,10 @@ public class LocomotiveController {
      */
     private final String INDEX_PAGE =
             "<!DOCTYPE html>" +
-            "<html><head></head><body>" +
-            "Use the following format: <br><br>" +
-            "/api?locomotive=12345678" +
-            "<br></body></html>";
+                    "<html><head></head><body>" +
+                    "Use the following format: <br><br>" +
+                    "/api?locomotive=12345678" +
+                    "<br></body></html>";
     private final String BAD_REQUEST = "Bad Request";
 
     /**
@@ -42,7 +42,8 @@ public class LocomotiveController {
     }
 
     /**
-     * HTTP mapping for /api which sends the JSON output for the requested locomotive full number.
+     * HTTP mapping for /api address which sends the JSON output for the
+     * requested locomotive full number.
      *
      * @param locomotive locomotive full number (8 digits). Example: 11426061
      * @param request    HTTP request
@@ -50,7 +51,8 @@ public class LocomotiveController {
      * @return response body
      */
     @GetMapping(value = "/api", produces = "application/json;charset=UTF-8")
-    public String api(@RequestParam(value = "locomotive", required = false) String locomotive,
+    public String api(@RequestParam(value = "locomotive", required = false)
+                              String locomotive,
                       HttpServletRequest request,
                       HttpServletResponse response) {
         String result = "";
@@ -74,5 +76,4 @@ public class LocomotiveController {
         }
         return result;
     }
-
 }

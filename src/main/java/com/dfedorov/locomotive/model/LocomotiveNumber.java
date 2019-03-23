@@ -51,7 +51,9 @@ public class LocomotiveNumber implements Checkable {
      * @param ordnungsNumber Locomotive's Ordnungsnummmer
      * @param checkDigit     Locomotive's Prüfziffer
      */
-    public LocomotiveNumber(int reihenNumber, int ordnungsNumber, int checkDigit) {
+    public LocomotiveNumber(int reihenNumber,
+                            int ordnungsNumber,
+                            int checkDigit) {
         this.reihenNumber = reihenNumber;
         this.ordnungsNumber = ordnungsNumber;
         this.checkDigit = checkDigit;
@@ -71,7 +73,12 @@ public class LocomotiveNumber implements Checkable {
      * @return User-friendly locomotive number with leading zeros
      */
     public String getFullNumber() {
-        return String.format("%04d %03d-%1d", reihenNumber, ordnungsNumber, checkDigit);
+        return String.format(
+                "%04d %03d-%1d",
+                reihenNumber,
+                ordnungsNumber,
+                checkDigit
+        );
     }
 
     /**
@@ -87,13 +94,16 @@ public class LocomotiveNumber implements Checkable {
     /**
      * Implementation of the Checkable interface method
      * <p>
-     * Bei den ÖBB ist das eine achtstellige Nummer bestehend aus der vierstelligen Reihennummer,
-     * der dreistelligen Ordnungsnummer und einer durch einen Bindestrich abgesetzten Prüfziffer.
-     * Die Prüfziffer wird aus den ersten sieben Stellen berechnet.
-     * Dazu wird die Quersumme der Ziffernfolge gebildet, die sich ergibt, wenn man die sieben Ziffern
-     * abwechselnd mit 2 und 1 multipliziert (erste Stelle mit 2, zweite mit 1, dritte wieder mit 2 usw.);
-     * die Differenz dieser Quersumme <b>zum nächsten Vielfachen von Zehn</b> bildet die Prüfziffer.
-     * Bei der Eingabe in Rechner wird über die Prüfziffer eine Plausibilitätskontrolle ausgeführt,
+     * Bei den ÖBB ist das eine achtstellige Nummer bestehend aus der
+     * vierstelligen Reihennummer, der dreistelligen Ordnungsnummer und einer
+     * durch einen Bindestrich abgesetzten Prüfziffer. Die Prüfziffer wird aus
+     * den ersten sieben Stellen berechnet.
+     * Dazu wird die Quersumme der Ziffernfolge gebildet, die sich ergibt,
+     * wenn man die sieben Ziffern      abwechselnd mit 2 und 1 multipliziert
+     * (erste Stelle mit 2, zweite mit 1, dritte wieder mit 2 usw.);
+     * die Differenz dieser Quersumme <b>zum nächsten Vielfachen von Zehn</b>
+     * bildet die Prüfziffer.      Bei der Eingabe in Rechner wird über die
+     * Prüfziffer eine Plausibilitätskontrolle ausgeführt,
      * die beispielsweise Ziffernstürze erkennt.
      *
      * @return check digit
@@ -101,7 +111,8 @@ public class LocomotiveNumber implements Checkable {
     @Override
     public int getCheckNumber() {
         final int multipleOf10 = 10;
-        int checkSum = getCheckSum(reihenNumber, 1) + getCheckSum(ordnungsNumber, 2);
+        int checkSum = getCheckSum(reihenNumber, 1) +
+                getCheckSum(ordnungsNumber, 2);
         return multipleOf10 - checkSum % 10;
     }
 

@@ -40,7 +40,7 @@ public class LocomotiveNumber implements Checkable {
     /**
      * Validity status
      */
-    private boolean isValid;
+    private boolean isValidNumber;
 
     /**
      * LocomotiveNumber constructor.
@@ -58,7 +58,7 @@ public class LocomotiveNumber implements Checkable {
         this.ordnungsNumber = ordnungsNumber;
         this.checkDigit = checkDigit;
         this.fullNumber = getFullNumber();
-        this.isValid = isValid();
+        this.isValidNumber = isValid();
     }
 
     /**
@@ -157,5 +157,25 @@ public class LocomotiveNumber implements Checkable {
             number /= 10;
         }
         return sum;
+    }
+
+    public int getReihenNumber() {
+        return reihenNumber;
+    }
+
+    public int getOrdnungsNumber() {
+        return ordnungsNumber;
+    }
+
+    public int getCheckDigit() {
+        return checkDigit;
+    }
+
+    public boolean isValidNumber() {
+        return isValidNumber;
+    }
+
+    public void setValidNumber(boolean validNumber) {
+        isValidNumber = validNumber;
     }
 }

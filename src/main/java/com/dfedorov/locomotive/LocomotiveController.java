@@ -51,7 +51,7 @@ public class LocomotiveController {
      * @return response body
      */
     @GetMapping(value = "/api", produces = "application/json;charset=UTF-8")
-    public String api(@RequestParam(value = "locomotive", required = false)
+    public LocomotiveNumber api(@RequestParam(value = "locomotive", required = false)
                               String locomotive,
                       HttpServletRequest request,
                       HttpServletResponse response) {
@@ -65,15 +65,20 @@ public class LocomotiveController {
                 int ordnungsNumber = Integer.parseInt(locomotive.substring(4, 7));
                 int checkDigit = Integer.parseInt(locomotive.substring(7, 8));
                 response.setStatus(HttpServletResponse.SC_OK);
-                result = new Gson().toJson(new LocomotiveNumber(
+//                result = new Gson().toJson(new LocomotiveNumber(
+//                        reihenNumber,
+//                        ordnungsNumber,
+//                        checkDigit));
+                return new LocomotiveNumber(
                         reihenNumber,
                         ordnungsNumber,
-                        checkDigit));
+                        checkDigit);
             } catch (NumberFormatException e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 result = BAD_REQUEST;
             }
         }
-        return result;
+//        return result;
+        return new LocomotiveNumber(0,0,0);
     }
 }
